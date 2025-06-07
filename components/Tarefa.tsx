@@ -10,27 +10,27 @@ type _propsTarefa = {
 }
 
 export default function Tarefa(props: _propsTarefa){
+
+    const concluir = async () => {
+        await props.db.runAsync("UPDATE tarefas SET concluido = 1 WHERE id = ?", props.dados.id);
+        await props.recarregar();
+    }
     
     const excluir = async () => {
         await props.db.runAsync("DELETE FROM tarefas WHERE id = ?", props.dados.id);
         await props.recarregar();
     }
 
-    const concluir = async () => {
-        await props.db.runAsync("UPDATE tarefas SET concluido = 1 WHERE id = ?", props.dados.id);
-        await props.recarregar();
-    }
-
     const renderStatus = () => {
         if(props.dados.concluido)
-            return <Text>Concluido</Text>
+            return <Text>Concluído</Text>
         return <Button title="Concluir" onPress={concluir}/>
     }
 
     const styles = StyleSheet.create({
       view: {
-        backgroundColor: "black",
-        height: 100,
+        backgroundColor: "azure",
+        height: 50,
       },
       
     });

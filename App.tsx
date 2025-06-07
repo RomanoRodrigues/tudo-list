@@ -21,14 +21,13 @@ export default function App() {
   }, [])
 
   const recarregar = async () => {
-    // getAllAsync - alterar tabela
     let temp: _tarefa[] = await db.getAllAsync('SELECT * FROM tarefas');
     setTarefas(temp);
   }
 
   const adicionar = async ()=>{
     if(novaTarefa == ''){
-      Alert.alert('Insira um texto!');
+      Alert.alert('Insira um título!');
       return;
     }
     
@@ -38,7 +37,7 @@ export default function App() {
     await recarregar();
   }
 
-  const renderLista = ()=>{
+  const viewLista = ()=>{
     let lista = tarefas.map(t=>
       <Tarefa dados={t} db={db} recarregar={recarregar} key={t.id}/>
     );
@@ -52,9 +51,9 @@ export default function App() {
         value={novaTarefa} 
         onChangeText={setNovaTarefa}
       />
-      <Button title='Adicionar' onPress={adicionar} color={"purple"}/>
+      <Button title='Adicionar' onPress={adicionar} color={"blue"}/>
       <View>
-        {renderLista()}
+        {viewLista()}
       </View>
       <StatusBar style="auto" />
     </View>
